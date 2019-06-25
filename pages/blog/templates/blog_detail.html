@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <section class="section-article">
+        <div class="custom-block-header z-depth-1">
+            <div class="row margin-bottom-0">
+                <nav>
+                    <div class="nav-wrapper">
+                        <div class="col s12">
+                            <a href="/profile/user/{{ object.user.username }}" class="breadcrumb">Профиль пользователя</a>
+                            <a href="/blog/list/{{ object.user.username }}" class="breadcrumb">Блог</a>
+                            <a href="#" class="breadcrumb">Статья</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'user' username=object.user.username %}">
+                        {% if object.user.profile.avatar_thumb %}
+                            <img src="{{ object.user.profile.avatar_thumb.url }}" class="user-photo responsive-img circle" alt="">
+                        {% else %}
+                            <img src="{% static '/img/ava_4.png' %}" class="user-photo responsive-img circle" alt="none-avatar">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col">
+                    <h5><a href="{% url 'user' username=object.user.username %}">{{ object.user.first_name }} ({{ object.user.username }}) {{ object.user.last_name }}</a></h5>
+                    <p>{{ object.date|date:"d.m.Y H:i" }}</p>
+                </div>
+
+                <div class="article col s12">
+                    <h5>{{ object.title }}</h5>
+                    {% if blog_animals %}
+                        <span class="title-animal-chips">Здесь упоминаются:</span>
+                        {% for animal in blog_animals %}
+                        	<a href="{% url 'animal' pk=animal.pk %}" class="truncate animal-chips">{{ animal.first_name }}</a>
+                   		{% endfor %}
+                    {% endif %}
+                    <p>{{ object.article|safe }}</p>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="write-article col s12 center ">
+                    <a class="btn waves-effect waves-light z-depth-0" href="{% url 'blog_create' %}" style="margin-top: 1rem;">Написать статью</a>
+                    {% if user == object.user %}
+                        <a class="btn waves-effect waves-light z-depth-0" href="{% url 'blog_update' pk=object.pk %}" style="margin-top: 1rem;">Редактировать</a>
+                        <a class="btn red-color waves-effect waves-light z-depth-0" href="{% url 'blog_delete' pk=object.pk %}" style="margin-top: 1rem;">Удалить</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section-comments">
+        <div class="block z-depth-1">
+            <div class="row">
+                <div id="disqus_thread"></div>
+                    <script>
+
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                    /*
+                    var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+                    */
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://http-185-93-109-126.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

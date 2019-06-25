@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% block content %}
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,900|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	 
+	{% include 'include/my_animals.html' %}
+
+	<section class="section-add-animal">
+		<div class="custom-block-header z-depth-1">
+			<div class="row margin-bottom-0">
+				<div class="col s12">
+					<h5>Добавление животного</h5>
+				</div>
+			</div>
+		</div>
+		<div class="custom-block-body z-depth-1">
+			<div class="row">
+				<div class="col s12">
+				    <form id="login_form" method="post" enctype='multipart/form-data'>
+				        {% csrf_token %}
+				        <p>
+				        	<label for="id_avatar">Аватар:</label>
+				        	<input type="file" id="id_avatar" name="avatar" class="dropify" data-height="300" />
+				        </p>
+				        <p>
+				        	<label for="id_first_name" class="">Имя:</label>
+				        	{{ form.first_name|add_class:"input custom-input-filter" }}
+				        </p>
+				        <p>
+				        	<label for="id_gender">Пол:</label> 
+							{{ form.gender|add_class:"browser-default" }}
+				        </p>
+				        <p>
+				        	<label for="id_birthday" class="">Дата рождения:</label> 
+				        	{{ form.birthday|add_class:"input custom-input-filter datepicker" }}
+				        </p>
+				        <p>
+				        	<label for="id_kind">Вид:</label> 
+							{{ form.kind|add_class:"browser-default" }}
+				        </p>
+				        <p>
+				        	<label for="id_info" class="">О животном:</label> 
+				        	{{ form.info|add_class:"input custom-input-filter materialize-textarea ta100" }}
+				        </p>
+				        <div class="col s12 center">
+				        	<input class="btn waves-effect waves-light z-depth-0" type="submit" value="Добавить">
+				        	<a class="btn waves-effect waves-light z-depth-0" href="{% url 'user' username=user.username %}" style="margin-top: 1rem">Отменить</a>
+				        </div>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

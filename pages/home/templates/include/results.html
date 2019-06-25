@@ -1,0 +1,69 @@
+{% load staticfiles %}
+{% load online %}
+<section class="section-search-result">
+    {% if not compl %}
+        <div class="custom-block-header z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col s12">
+                    <h5>По вашему запросу ничего не найдено</h5>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        {% if animal_results and compl %}
+            {% for animal in animal_results %}
+                <div class="col s6 m3">
+                    <div class="block">
+                        <a href="{% url 'animal' pk=animal.pk %}">
+                            {% if animal.avatar_thumb %}
+                                <img src="{{ animal.avatar_thumb.url }}" class="responsive-img z-depth-1" alt="animal-avatar">
+                            {% else %}
+                                <img src="{% static '/img/ava_4.png' %}" class="responsive-img z-depth-1" alt="none-avatar">
+                            {% endif %}
+                            <!--<div class="online"></div>-->
+                            <div class="user-info">
+                                <ul>
+                                  <li>{{ animal.first_name }}</li>
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if people_results and compl %}
+            {% for people in people_results %}
+                <div class="col s6 m3">
+                    <div class="block">
+                        <a href="{% url 'user' username=people.user.username %}">
+                            {% if people.avatar_thumb %}
+                                <img src="{{ people.avatar_thumb.url }}" class="responsive-img z-depth-1" alt="user-avatar">
+                            {% else %}
+                                <img src="{% static '/img/ava_4.png' %}" class="responsive-img z-depth-1" alt="none-avatar">
+                            {% endif %}
+                            {% if people.last_visit|online %}
+                            <div class="online"></div>
+                            {% endif %}
+                            <div class="user-info">
+                                <ul>
+                                    {% if people.user.first_name %}
+                                        <li>{{ people.user.first_name }}</li>
+                                        <li>{{ people.user.last_name }}</li>
+                                    {% else %}
+                                        <li>{{ people.user.username }}</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% if search_moar and compl %}
+    <div class="col s12 center">
+        <button class="btn waves-effect waves-light moar" searchtype="{{ search_type }}" value="{{ search_offset }}">Показать еще<i class="material-icons right">cached</i></button>
+    </div>
+    {% endif %}
+</section>

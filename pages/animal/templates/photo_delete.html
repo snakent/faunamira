@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <section class="section-del-photo">
+		<div class="custom-block-header z-depth-1">
+			<div class="row margin-bottom-0">
+				<div class="col s12">
+					<h5>Удаление фотографии</h5>
+				</div>
+			</div>
+		</div>
+		<div class="custom-block-body z-depth-1">
+			<div class="row">
+				<div class="col s12">
+					<img src="{{ obj.photo_thumb.url }}" alt="{{ obj.title }}" class="responsive-img">
+					<p>Вы уверены, что хотите удалить эту фотографию?</p>
+				    <form method="post">
+				        {% csrf_token %}
+				        <div class="col s12 center">
+				        	<a class="btn waves-effect waves-light z-depth-0" href="{% url 'animal' pk=animal.pk %}" style="margin-top: 1rem">Отменить</a>
+				        	<input class="btn red-color waves-effect waves-light z-depth-0" type="submit" value="Удалить">
+				        </div>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

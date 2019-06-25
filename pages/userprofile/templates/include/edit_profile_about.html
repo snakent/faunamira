@@ -1,0 +1,65 @@
+{% if about %}
+{% load widget_tweaks %}
+    <section class="section-user-about">
+        <div class="custom-block-header z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col l12">
+                    <h5>Обо мне</h5>
+                    {% if request.user == people %}
+                        <h5 class="right"><a href="{% url 'user_update' user.username %}#about" id="about-edit"><i class="material-icons">edit</i></a></h5> 
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+            <div class="row">
+                <div class="col s12">
+                    <!-- <h5>Интересы</h5>
+                    <a href="search-filter.html">Прогулки с животными</a>,
+                    <a href="search-filter.html">Друзья</a>,
+                    <a href="search-filter.html">Вечеринки</a>,
+                    <a href="search-filter.html">Семья</a> -->
+                    <h5>Я ищу:</h5>
+                    <span>{{ about.get_find_display }}</span>
+                    <h5>Цель знакомства:</h5>
+                    <span>{{ about.get_purpose_display }}</span>
+                    <h5>Обо мне:</h5>
+                    <span>{{ about.about_me }}</span>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{# {% elif form and request.user == people %} #}
+<!--     <section class="section-user-about">
+        <div class="custom-block-header z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col l12">
+                    <h5>Обо мне</h5>
+                </div>
+            </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+            <div class="row">
+                <div class="col s12">
+                    <form method="post">
+                        {% csrf_token %} 
+                        <p>
+                            <label for="id_find" class="active">Я ищу:</label> 
+                            {{ form.find|add_class:"browser-default" }}
+                        </p>
+                        <p>
+                            <label for="id_purpose" class="active">Цель знакомства:</label> 
+                            {{ form.purpose|add_class:"browser-default" }}
+                        </p>
+                        <p>
+                            <label for="id_about_me" class="active">Обо мне:</label> 
+                            {{ form.about_me|add_class:"input custom-input-filter" }}
+                        </p>
+                        <input type="submit" id="about-submit" value="Сохранить">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section> -->
+{% endif %}

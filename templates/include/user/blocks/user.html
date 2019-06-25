@@ -1,0 +1,94 @@
+{% load static %}
+
+<section class="section-main-panel">
+    <div class="mobile-menu block z-depth-1">
+        <div class="logo col s9 padding-0">
+            <a href="/">
+                <img src="{% static 'img/logo.png' %}" class="responsive-img" alt="" width="150">
+            </a>
+        </div>
+        <div class="col s3">
+            <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only">
+                <i class="medium material-icons right">menu</i>
+            </a>
+        </div>
+    </div>
+    <ul id="slide-out" class="side-nav">
+        <li>
+            <div class="userView">
+                <div class="background">
+                    <img src="{% static 'img/poligon.jpg' %}" class="responsive-img">
+                </div>
+                <a href="{% url 'user' username=user.username %}">
+                {% if user.profile.avatar %}
+                    <img src="{{ user.profile.avatar_thumb.url }}" class="responsive-img circle" alt="avatar">
+                {% else %}
+                    <img src="{% static '/img/ava_4.png' %}" class="responsive-img circle" alt="none-avatar">
+                {% endif %}
+                    <span class="white-text name">{{ user.first_name }} ({{ user.username }}) {{ user.last_name }}</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <a href="/chat"><i class="material-icons">mail</i>Сообщения</a>
+        </li>
+        <li>
+            <a href="/blog/list/{{user.username}}"><i class="material-icons">description</i>Статьи</a>
+        </li>
+        <li>
+            <a href="{% url 'animal_create' %}"><i class="material-icons">pets</i>Мои питомцы</a>
+        </li>
+        <li>
+            <a href="{% url 'user_update' user.username %}"><i class="material-icons">settings</i>Настройки</a>
+        </li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li class="logout">
+            <a href="{% url 'account_logout' %}">{% csrf_token %}<i class="material-icons">cancel</i>Выйти</a>
+        </li>
+    </ul>
+    <div class="block z-depth-1 hide-on-med-and-down padding-0">
+        <div class="row margin-bottom-0">
+            <ul class="user-nav">
+                <li>
+                    <div class="user-view valign-wrapper col s12">
+                        <div class="col s3">                            
+                            <a href="{% url 'user' username=user.username %}">
+                                {% if user.profile.avatar %}
+                                    <img src="{{ user.profile.avatar_thumb.url }}" class="responsive-img circle" alt="avatar">
+                                {% else %}
+                                    <img src="{% static '/img/ava_4.png' %}" class="responsive-img circle" alt="none-avatar">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="col s9">
+                            <a href="{% url 'user' username=user.username %}">
+                                <h5>{{ user.first_name }} {{ user.last_name }}<br>({{ user.username }})</h5>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="/chat"><i class="material-icons">mail</i>Сообщения</a>
+                </li>
+                <li>
+                    <a href="/blog/list/{{user.username}}"><i class="material-icons">description</i>Статьи</a>
+                </li>
+                <li>
+                    <a href="{% url 'animal_create' %}"><i class="material-icons">pets</i>Мои питомцы</a>
+                </li>
+                <li>
+                    <a href="{% url 'user_update' user.username %}"><i class="material-icons">settings</i>Настройки</a>
+                </li>
+                <li>
+                    <div class="divider"></div>
+                </li>
+                <li class="logout">
+                    <a href="{% url 'account_logout' %}">{% csrf_token %}<i class="material-icons">cancel</i>Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% include 'include/banner.html' %}

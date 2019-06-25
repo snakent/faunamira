@@ -1,0 +1,111 @@
+{% load staticfiles %}
+<section class="section-filter-panel">
+    <div class="custom-block-header">
+        <div class="row margin-bottom-0">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s4 m2 l2 offset-s1 offset-m2 offset-l3 bold z-depth-1">
+                        <a class="active" href="#owner">Владельцы</a>
+                    </li>
+                    <div class="col m1 l1 hide-on-small-only"></div>
+                    <li class="tab col s5 m3 l3 offset-s1 bold z-depth-1">
+                        <a href="#pet">Животные</a>
+                    </li>
+                    <div class="col m2 l1 hide-on-large-only"></div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="custom-block-body z-depth-1" {% if filterlogo %} style="background: url( {{ filterlogo.url }} ) no-repeat center; background-size: cover;" {% endif %}>
+        <div class="row">
+            <div id="owner" class="col s12">
+                <form>
+                    <!-- <div id="id_gender" class="input-field col s12 xl2">
+                        <select>
+                            <option value="" disabled selected>Пол</option>
+                            <option value="M">Парень</option>
+                            <option value="W">Девушка</option>
+                        </select>
+                    </div> -->
+                    <div id="id_wtf" class="input-field col s12 l3 xl4">
+                        <select>
+                            <option value="" disabled selected>Ищу</option>
+                            <option value="M">Парня</option>
+                            <option value="W">Девушку</option>
+                        </select>
+                    </div>
+                    <div id="id_age-from" class="input-field col s6 l3 xl2">
+                    	<input type="text" maxlength="3" class="custom-input-filter" placeholder="Возраст от">
+                    </div>
+                    <div id="id_age-before" class="input-field col s6 l3 xl2">
+                        <input type="text" maxlength="3" class="custom-input-filter" placeholder="Возраст до">
+                    </div>
+                    <div id="id_target" class="input-field col s12 l3 xl4">
+                        <select>
+                            <option value="" disabled selected>Цель знакомства</option>
+                            <option value="FNF">Дружба</option>
+                            <option value="GOD">Свидание</option>
+                            <option value="CMN">Общение</option>           
+                        </select>
+                    </div>
+                    <div class="aut-compl col s12">
+                    	<div class="input-field">
+                    		<input type="text" id="autocomplete-0" class="autocomplete custom-autocomplete" placeholder="Местоположение">
+                    		<div class="results"></div>
+                    	</div>
+                        <script>
+                            var city_data = [];
+                            {% for city in cities_list %}
+                                city_data.push({"title":"{{ city.name_ru }}", "id":"{{ forloop.counter }}"});
+                            {% endfor %}
+                        </script>
+                    </div>
+                    <button id="people_filter_button" class="btn-abs btn waves-effect waves-light z-depth-0" type="submit" name="action">Найти</button>
+                </form>
+            </div>
+            <div id="pet" class="col s12">
+                <form>
+                    <div id="id_gender" class="input-field col s12 l3 xl2">
+                        <select>
+                            <option value="" disabled selected>Пол</option>
+                            <option value="B">Самец</option>
+                            <option value="G">Самка</option>
+                        </select>
+                    </div>
+                    <div id="id_age-from" class="input-field col s6 l3 xl2">
+                        <input type="text" maxlength="2" class="custom-input-filter" placeholder="Возраст от">
+                    </div>
+                    <div id="id_age-before" class="input-field col s6 l3 xl2">
+                        <input type="text" maxlength="2" class="custom-input-filter" placeholder="Возраст до">
+                    </div>
+                    <div id="id_status" class="input-field col s12 l3">
+                        <select>
+                            <option value="" disabled selected>Статус</option>
+                            <option value="H">Ищет хозяина</option>
+                            <option value="P">Ищет пару</option>
+                        </select>
+                    </div>
+                    <div id="id_kind" class="input-field col s12 l4 xl3">
+                        <select>
+                            <option value="" disabled selected>Вид</option>
+                            <!-- js populate -->
+                        </select>
+                    </div>
+                    <div class="aut-compl col s12 l8 xl6">
+                        <div class="input-field">
+                            <input type="text" id="autocomplete-1" class="autocomplete custom-autocomplete" placeholder="Порода" disabled="">
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                    <div class="aut-compl col s12 xl6">
+                        <div class="input-field" style="z-index:1;">
+                            <input type="text" id="autocomplete-2" class="autocomplete custom-autocomplete" placeholder="Местоположение">
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                    <button id="animal_filter_button" class="btn-abs btn waves-effect waves-light z-depth-0" type="submit" name="action">Найти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

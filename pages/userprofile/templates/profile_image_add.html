@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block content %}
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,900|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	 
+	<section class="section-user-add-photo">
+		<div class="custom-block-header z-depth-1">
+			<div class="row margin-bottom-0">
+				<div class="col s12">
+					<h5>Добавление фотографий</h5>
+				</div>
+			</div>
+		</div>
+		<div class="custom-block-body z-depth-1">
+			<div class="row">
+				<div class="col s12">
+					<form method="post" enctype='multipart/form-data'>
+				        {% csrf_token %}
+				        <label for="id_image">Фотография:</label>
+                        <input type="file" id="id_image" name="image" class="dropify" data-height="300" />
+                        <p>
+                            <label for="id_description" class="active">Описание:</label>
+                            {{ form.description|add_class:"input custom-input-filter" }}
+                        </p>
+				        <div class="col s12 center">
+				        	<input class="btn waves-effect waves-light z-depth-0" type="submit" value="Добавить">
+				        	<a class="btn waves-effect waves-light z-depth-0" href="{% url 'user' username=user.username %}" style="margin-top: 1rem">Отменить</a>
+				        </div>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

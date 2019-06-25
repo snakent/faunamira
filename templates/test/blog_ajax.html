@@ -1,0 +1,24 @@
+    {% for article in blog_list %}
+        <div class="custom-block-header z-depth-1">
+          <div class="row margin-bottom-0">
+            <div class="col s12">
+              <h5><a href="{% url 'blog_detail' pk=article.pk %}">{{ article.title }}</a></h5>
+            </div>
+          </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+          <div class="row">
+            <div class="col s12 m2">
+              <a href="#"><img src="{{ article.user.profile.avatar_thumb.url }}" alt="" class="responsive-img circle"></a>
+              <span class="bold">{{ article.user.profile.first_name }}</span>
+              <p>{{ article.date|date:"d.m.Y H:i" }}</p>
+            </div>
+            <div class="col s12 m10">
+              <p>{{ article.article|safe|truncatechars_html:400 }}</p>
+              <div class="col s12 center">
+                <a class="btn waves-effect waves-light z-depth-0" href="{% url 'blog_detail' pk=article.pk %}">Читать</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}

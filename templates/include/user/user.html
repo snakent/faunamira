@@ -1,0 +1,44 @@
+{% load staticfiles %}
+
+{% if user.is_authenticated or login_user.is_authenticated %}
+    {% include 'include/user/blocks/user.html' %}
+{% else %}
+    <section class="section-main-panel">
+        <div class="block z-depth-1">
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static 'img/logo.png' %}" class="responsive-img" alt="" width="150">
+                </a>
+            </div>
+        </div>
+        <div class="custom-block-header">
+            <div class="autorization h">
+                <div class="row margin-bottom-0">
+                    <div class="col s12">
+                        <ul class="tabs autorization">
+                            <li class="tab col s5 xl4 offset-xl1 bold z-depth-1">
+                                <a class="active" href="#login">Войти</a>
+                            </li>
+                            <li class="tab col s6 xl5 offset-s1 offset-xl1 bold z-depth-1">
+                                <a href="#registration">Регистрация</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+            <div class="autorization b">
+                <div class="row">
+                    <div id="login" class="col s12">
+                        {% include 'include/user/blocks/login.html' %}
+                    </div>
+                    <div id="registration" class="col s12">
+                        {% include 'include/user/blocks/signup.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'include/banner.html' %}
+{% endif %}

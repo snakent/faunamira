@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block content %}
+    <section class="section-upd-attributes">
+		<div class="custom-block-header z-depth-1">
+			<div class="row margin-bottom-0">
+				<div class="col s12">
+					<h5>Редактирование характеристики</h5>
+				</div>
+			</div>
+		</div>
+		<div class="custom-block-body z-depth-1">
+			<div class="row">
+				<div class="col s12">
+				    <form method="post">
+				        {% csrf_token %}
+				        <input type="hidden" id="get_kind" value="{{animal.kind}}">
+						<p>
+							<label for="id_attr">Характеристика:</label>
+							{{ form.attr|add_class:"browser-default" }}
+						</p>
+						<p>
+							<label for="id_value">Значение характеристики:</label>
+							{{ form.value|add_class:"browser-default"|attr:"disabled:disabled" }}
+						</p>
+				        <div class="col s12 center">
+				        	<input class="btn waves-effect waves-light z-depth-0" type="submit" value="Сохранить">
+				        	<a class="btn waves-effect waves-light z-depth-0" href="{% url 'animal' pk=animal.pk %}" style="margin-top: 1rem">Отменить</a>
+				        </div>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/animal.js' %}"></script>
+{% endblock %}

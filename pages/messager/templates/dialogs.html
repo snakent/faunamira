@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+{% include 'include/user/user.html' %}
+<section class="section-messages col l8">
+    <div class="block item z-depth-1">
+      <div class="message-block">
+        <div class="row margin-bottom-0">
+          <div class="col s4 l5 xl4">
+            <ul class="collection scroll">
+              <li class="collection-item avatar">
+                <img src="https://cache3.youla.io/files/images/160_160/58/f3/58f31efdbd36c06e65301ac6.jpg" alt="" class="circle">
+                <span class="title truncate">Илюха Ураган</span>
+                <span class="secondary-content"><i class="material-icons">fiber_manual_record</i></span>
+              </li>
+              <li class="collection-item avatar">
+                <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                <span class="title truncate">Негр в пене</span>
+              </li>
+              <li class="collection-item avatar">
+                <img src="https://pp.userapi.com/c836721/v836721962/3f2f5/34lDxUasWXc.jpg" alt="" class="circle">
+                <span class="title truncate">Анатолий Чистов</span>
+              </li>
+              <li class="collection-item avatar">
+                <img src="https://pp.userapi.com/c637218/v637218963/21654/xNDN8rnCIec.jpg" alt="" class="circle">
+                <span class="title truncate">Ермак</span>
+                <span class="secondary-content"><i class="material-icons">fiber_manual_record</i></span>
+              </li>
+                <li class="collection-item avatar">
+                <img src="https://cache3.youla.io/files/images/160_160/58/f3/58f31efdbd36c06e65301ac6.jpg" alt="" class="circle">
+                <span class="title truncate">Илюха Ураган</span>
+                <span class="secondary-content"><i class="material-icons">fiber_manual_record</i></span>
+              </li>
+              <li class="collection-item avatar">
+                <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                <span class="title truncate">Негр в пене</span>
+              </li>
+              <li class="collection-item avatar">
+                <img src="https://pp.userapi.com/c836721/v836721962/3f2f5/34lDxUasWXc.jpg" alt="" class="circle">
+                <span class="title truncate">Анатолий Чистов</span>
+              </li>
+              <li class="collection-item avatar">
+                <img src="https://pp.userapi.com/c637218/v637218963/21654/xNDN8rnCIec.jpg" alt="" class="circle">
+                <span class="title truncate">Ермак</span>
+                <span class="secondary-content"><i class="material-icons">fiber_manual_record</i></span>
+              </li>
+            </ul>
+          </div>
+          <div class="col s8 l7 xl8">
+            <div class="dialog-area">
+              <ul class="collection scroll">
+                <li class="collection-item avatar">
+                  <img src="https://cache3.youla.io/files/images/160_160/58/f3/58f31efdbd36c06e65301ac6.jpg" alt="" class="circle">
+                  <span class="title truncate light-green-text text-darken-3">Илюха Ураган <span class="date grey-text">05.10.12</span></span>
+                  <p>Привет, есть что почитать?</p>
+                </li>
+                <li class="collection-item avatar">
+                  <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                  <span class="title truncate light-green-text text-darken-3">Негр в пене <span class="date grey-text">05.10.12</span></span>
+                  <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов.</p>
+                </li>
+                <li class="collection-item avatar">
+                  <img src="https://cache3.youla.io/files/images/160_160/58/f3/58f31efdbd36c06e65301ac6.jpg" alt="" class="circle">
+                  <span class="title truncate light-green-text text-darken-3">Илюха Ураган <span class="date grey-text">05.10.12</span></span>
+                  <p>WAT? что за фигня</p>
+                </li>
+                <li class="collection-item avatar">
+                  <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                  <span class="title truncate light-green-text text-darken-3">Негр в пене <span class="date grey-text">05.10.12</span></span>
+                  <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов.</p>
+                </li>
+                <li class="collection-item avatar">
+                  <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                  <span class="title truncate light-green-text text-darken-3">Негр в пене <span class="date grey-text">05.10.12</span></span>
+                  <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов.</p>
+                </li>
+              </ul>
+              <div class="message-area">
+                <form class="col s12">
+                  <textarea placeholder="Напишите сообщение..." class="custom-input create-message" maxlength="500"></textarea>
+                  <button type="submit" class="add-message"><i class="material-icons">send</i></button>
+                </form>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <h1>Диалоги - <a href="{% url 'user' username=request.user.username %}">{{ user.username }}</a></h1>
+    <h2>Создать диалог</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Создать диалог">
+    </form>
+    {% if dialogs %}
+        <h2>Диалоги</h2>
+        {% for dia in dialogs %}
+            <div>
+                {% if dia.user_from == request.user %}
+                    <h3><a href="{% url 'message' pk=dia.pk %}">{{ dia.user_to.username }}</a></h3>
+                    {% if dia.user_to.profile.avatar %}
+                        <img src="{{ dia.user_to.profile.avatar_thumb.url }}">
+                    {% endif %}
+                {% elif dia.user_to == request.user %}
+                    <h3><a href="{% url 'message' pk=dia.pk %}">{{ dia.user_from.username }}</a></h3>
+                    {% if dia.user_from.profile.avatar %}
+                        <img src="{{ dia.user_from.profile.avatar_thumb.url }}">
+                    {% endif %}
+                {% endif %}
+                <p>{{ dia.date }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

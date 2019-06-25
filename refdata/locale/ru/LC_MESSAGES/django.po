@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-08 13:21+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: apps.py:7
+msgid "Infoblocks"
+msgstr "Инфоблоки"
+
+#: models.py:13
+msgid "Banner name"
+msgstr "Название"
+
+#: models.py:16 models.py:20
+msgid "Banner"
+msgstr "Баннер"
+
+#: models.py:17
+msgid "Active status"
+msgstr "Активность"
+
+#: models.py:21
+msgid "Banners"
+msgstr "Баннеры"
+
+#: models.py:31 models.py:62
+msgid "Title"
+msgstr "Заголовок"
+
+#: models.py:32 models.py:63
+msgid "Url"
+msgstr "Ссылка"
+
+#: models.py:33
+msgid "order"
+msgstr "Порядок"
+
+#: models.py:34
+msgid "Slug"
+msgstr "ЧПУ"
+
+#: models.py:37 models.py:38
+msgid "Additional menu"
+msgstr "Дополнительное меню"
+
+#: models.py:57
+msgid "Vkontakte"
+msgstr "Вконтакте"
+
+#: models.py:58
+msgid "Odnoklassniki"
+msgstr "Одноклассники"
+
+#: models.py:59
+msgid "Facebook"
+msgstr ""
+
+#: models.py:60
+msgid "Instagram"
+msgstr ""
+
+#: models.py:66 models.py:67
+msgid "Social links"
+msgstr "Социальные ссылки"
+
+#: models.py:77 models.py:94
+msgid "Name ru"
+msgstr "Название (рус)"
+
+#: models.py:78 models.py:95
+msgid "Name en"
+msgstr "Название (анг)"
+
+#: models.py:79
+msgid "Code"
+msgstr "Код"
+
+#: models.py:82 models.py:93
+msgid "Country"
+msgstr "Страна"
+
+#: models.py:83
+msgid "Countrys"
+msgstr "Страны"
+
+#: models.py:96
+msgid "Region"
+msgstr "Регион"
+
+#: models.py:97
+msgid "Postal code"
+msgstr "Почтовый код"
+
+#: models.py:98
+msgid "Latitude"
+msgstr "Широта"
+
+#: models.py:99
+msgid "Longitude"
+msgstr "Долгота"
+
+#: models.py:100
+msgid "Population"
+msgstr "Популяция"
+
+#: models.py:101
+msgid "On top"
+msgstr "На главной"
+
+#: models.py:104
+msgid "City"
+msgstr "Город"
+
+#: models.py:105
+msgid "Cities"
+msgstr "Города"
+
+#: models.py:113
+msgid "Название"
+msgstr ""
+
+#: models.py:115
+msgid "Исходное изображение"
+msgstr ""
+
+#: models.py:117
+msgid "Изображение"
+msgstr ""
+
+#: models.py:118
+msgid "Активность"
+msgstr ""
+
+#: models.py:121
+msgid "Изображение в фильтре"
+msgstr "Изображение в фильтре"

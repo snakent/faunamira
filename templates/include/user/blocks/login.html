@@ -1,0 +1,43 @@
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+<form id="login_form">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col s12">
+            <i for="id_login" class="material-icons prefix">email</i>
+            {{ login_form.login|add_class:"validate input custom-input" }}
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <i for="id_password" class="material-icons prefix">lock_outline</i>
+            {{ login_form.password|add_class:"validate input custom-input" }}
+        </div>
+    </div>
+    <p>
+        <input type="checkbox" class="filled-in custom-checkbox" id="filled-in-box" />
+        <label for="filled-in-box">Запомнить меня</label>
+    </p>
+    <a href="/password_reset/" style="margin-left: 45px;">Восстановить пароль</a>
+    <div class="social-link center">
+        <h6>Войти с помощью</h6>                      
+        {% load socialaccount %}
+        {% get_providers as socialaccount_providers %}
+
+        {% for provider in socialaccount_providers %}
+            {% if provider.id == "openid" %}
+                {% for brand in provider.get_brands %}
+                  <a title="{{brand.name}}" class="{{provider.id}} {{brand.id}}" href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">{{brand.name}}</a>
+                {% endfor %}
+            {% endif %}
+            <a title="{{provider.name}}" class="{{provider.id}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+                <img class="responsive-img soc-icon" src="/static/img/soc/{{provider.id}}.png" />
+            </a>
+        {% endfor %}
+    </div>
+    <div class="col s12 center">
+        <button onclick="user_login(); return false;" class="btn waves-effect waves-light z-depth-0" id="login_button" type="submit" name="action">Войти на сайт</button>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+{% load widget_tweaks %}
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col s12">
+            <i for="id_username" class="material-icons prefix">person</i>
+            {{ signup_form.username|add_class:"validate input custom-input" }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <i for="id_email" class="material-icons prefix">email</i>
+            {{ signup_form.email|add_class:"validate input custom-input" }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <i for="id_password1" class="material-icons prefix">lock_outline</i>
+            {{ signup_form.password1|add_class:"validate input custom-input" }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <i for="password" class="material-icons prefix">lock_outline</i>
+            {{ signup_form.password2|add_class:"validate input custom-input" }}
+        </div>
+    </div>
+    <div class="col s12 center">
+        <button class="btn waves-effect waves-light z-depth-0" type="submit" id="signup_button">Регистрация</button>
+    </div>
+</form>

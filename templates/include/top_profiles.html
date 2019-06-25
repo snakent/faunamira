@@ -1,0 +1,31 @@
+{% load staticfiles %}
+
+<section class="section-most-popular">
+    <div class="custom-block-header z-depth-1">
+        <div class="row margin-bottom-0">
+            <div class="col s12 header-block clearfix padding-0">
+                <div class="col s9 m10">
+                    <h5>Популярные пользователи</h5>
+                </div>
+                <div class="col right-align navig"></div>
+            </div>
+        </div>
+    </div>
+    <div class="custom-block-body z-depth-1">
+        <div class="row margin-bottom-0">
+
+            {% for tuser in top_users %}
+            <div class="crsl-item">
+                <a href="{% url 'user' username=tuser.username %}">
+                    {% if tuser.profile.avatar %}
+                    <img src="{{ tuser.profile.avatar_thumb.url }}" class="responsive-img"> 
+                    {% else %}
+                    <img src="{% static '/img/ava_4.png' %}" class="responsive-img z-depth-1" alt="none-avatar">                     
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>

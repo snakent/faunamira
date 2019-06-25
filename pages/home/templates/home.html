@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+        <div id="block_filter">        
+            {% include 'include/filters.html' %}        
+        </div>
+        <div id="block_content">
+            {% include 'include/random_profiles.html' %}
+            {% include 'include/top_profiles.html' %}
+            {% include 'include/latest_articles.html' %}
+        </div>
+    
+    {% comment %} {% include 'include/my_animals.html' %} {% endcomment %}
+    {% comment %} {% include 'include/banner.html' %} {% endcomment %}
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+{% endblock %}

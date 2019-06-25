@@ -1,0 +1,292 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <!-- css -->
+      <link type="text/css" rel="stylesheet" href="css/common.css"/>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta charset="utf-8"/>
+    </head>
+    <body>
+      <div class="container">
+        <div class="row">
+          <!-- User main panel -->
+          <section class="section-main-panel col s12 l4">
+            <div class="block z-depth-1">
+              <div class="logo">
+                <a href="/"><img src="img/logo.png" class="responsive-img" alt="" width="150"></a>
+              </div>
+            </div>
+            <div class="custom-block-header">
+              <div class="autorization h">
+                <div class="row margin-bottom-0">
+                  <div class="col s12">
+                    <ul class="tabs autorization">
+                      <li class="tab col s4 offset-s1 bold z-depth-1"><a class="active" href="#login">Войти</a></li>
+                      <li class="tab col s5 offset-s1 bold z-depth-1"><a href="#registration">Регистрация</a></li>
+                      <div class="col s1"></div>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="custom-block-body z-depth-1">
+              <div class="autorization b">
+                <div class="row">
+                  <div id="login" class="col s12">
+                    <form action="authorized.html">
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <i for="login" class="material-icons prefix">email</i>                          
+                          <input id="login" type="text" class="validate input custom-input" placeholder="Почта или логин">
+                          
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <i for="password" class="material-icons prefix">lock_outline</i>
+                          <input id="password" type="password" class="validate input custom-input" placeholder="Ваш пароль">
+                          
+                        </div>
+                      </div>
+                      <p>
+                        <input type="checkbox" class="filled-in custom-checkbox" id="filled-in-box"/>
+                        <label for="filled-in-box">Запомнить меня</label>                        
+                      </p>
+                      <a href="#" style="margin-left: 45px;">Восстановить пароль</a>
+                      <!-- <div class="social-link center">
+                      <h6>Войти с помощью</h6>                      
+                        <img src="img/vk.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/fb.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/ok.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/gplus.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/mailru.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/ya.png" alt="" class="responsive-img soc-icon">
+                      </div> -->
+                      <div class="col s12 center">
+                        <button class="btn waves-effect waves-light z-depth-0" type="submit" name="action">Войти на сайт</button>
+                      </div>                      
+                    </form>
+                  </div>
+                  <div id="registration" class="col s12">
+                    <form action="#">
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <i for="email" class="material-icons prefix">email</i>  
+                          <input id="email" type="email" class="validate input custom-input" placeholder="Почта или логин">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <i for="password" class="material-icons prefix">lock_outline</i>  
+                          <input id="password" type="password" class="validate input custom-input" placeholder="Ваш пароль">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <i for="password" class="material-icons prefix">lock_outline</i>
+                          <input id="password" type="password" class="validate input custom-input" placeholder="Повторите пароль">
+                        </div>
+                      </div>
+                      <!-- <div class="social-link center">
+                      <h6>Регистрация через</h6>
+                        <img src="img/vk.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/fb.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/ok.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/gplus.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/mailru.png" alt="" class="responsive-img soc-icon">
+                        <img src="img/ya.png" alt="" class="responsive-img soc-icon">                        
+                      </div> -->
+                      <div class="col s12 center">
+                        <button class="btn waves-effect waves-light z-depth-0" type="submit" name="action">Регистрация</button>
+                      </div>                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- // User main panel -->
+          <!-- Messages -->
+          <section class="section-messages col l8">
+            <div class="block item z-depth-1">
+              <div class="message-block">
+                <div class="row margin-bottom-0">
+                  <div class="col s4 l5 xl4">
+                    <ul class="collection scroll">
+                      <li class="collection-item avatar">
+                        <img src="https://cache3.youla.io/files/images/160_160/58/f3/58f31efdbd36c06e65301ac6.jpg" alt="" class="circle">
+                        <span class="title truncate">Илюха Ураган</span>
+                        <span class="secondary-content"><i class="material-icons">fiber_manual_record</i></span>
+                      </li>
+                      <li class="collection-item avatar">
+                        <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                        <span class="title truncate">Негр в пене</span>
+                      </li>
+                      <li class="collection-item avatar">
+                        <img src="https://pp.userapi.com/c836721/v836721962/3f2f5/34lDxUasWXc.jpg" alt="" class="circle">
+                        <span class="title truncate">Анатолий Чистов</span>
+                      </li>
+                      <li class="collection-item avatar">
+                        <img src="https://pp.userapi.com/c637218/v637218963/21654/xNDN8rnCIec.jpg" alt="" class="circle">
+                        <span class="title truncate">Ермак</span>
+                        <span class="secondary-content"><i class="material-icons">fiber_manual_record</i></span>
+                      </li>
+                        <li class="collection-item avatar">
+                        <img src="https://cache3.youla.io/files/images/160_160/58/f3/58f31efdbd36c06e65301ac6.jpg" alt="" class="circle">
+                        <span class="title truncate">Илюха Ураган</span>
+                        <span class="secondary-content"><i class="material-icons">fiber_manual_record</i></span>
+                      </li>
+                      <li class="collection-item avatar">
+                        <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                        <span class="title truncate">Негр в пене</span>
+                      </li>
+                      <li class="collection-item avatar">
+                        <img src="https://pp.userapi.com/c836721/v836721962/3f2f5/34lDxUasWXc.jpg" alt="" class="circle">
+                        <span class="title truncate">Анатолий Чистов</span>
+                      </li>
+                      <li class="collection-item avatar">
+                        <img src="https://pp.userapi.com/c637218/v637218963/21654/xNDN8rnCIec.jpg" alt="" class="circle">
+                        <span class="title truncate">Ермак</span>
+                        <span class="secondary-content"><i class="material-icons">fiber_manual_record</i></span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col s8 l7 xl8">
+                    <div class="dialog-area">
+                      <ul class="collection scroll">
+                        <li class="collection-item avatar">
+                          <img src="https://cache3.youla.io/files/images/160_160/58/f3/58f31efdbd36c06e65301ac6.jpg" alt="" class="circle">
+                          <span class="title truncate light-green-text text-darken-3">Илюха Ураган <span class="date grey-text">05.10.12</span></span>
+                          <p>Привет, есть что почитать?</p>
+                        </li>
+                        <li class="collection-item avatar">
+                          <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                          <span class="title truncate light-green-text text-darken-3">Негр в пене <span class="date grey-text">05.10.12</span></span>
+                          <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов.</p>
+                        </li>
+                        <li class="collection-item avatar">
+                          <img src="https://cache3.youla.io/files/images/160_160/58/f3/58f31efdbd36c06e65301ac6.jpg" alt="" class="circle">
+                          <span class="title truncate light-green-text text-darken-3">Илюха Ураган <span class="date grey-text">05.10.12</span></span>
+                          <p>WAT? что за фигня</p>
+                        </li>
+                        <li class="collection-item avatar">
+                          <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                          <span class="title truncate light-green-text text-darken-3">Негр в пене <span class="date grey-text">05.10.12</span></span>
+                          <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов.</p>
+                        </li>
+                        <li class="collection-item avatar">
+                          <img src="https://pp.userapi.com/c604628/v604628998/28367/CqpOqfz0ldo.jpg" alt="" class="circle">
+                          <span class="title truncate light-green-text text-darken-3">Негр в пене <span class="date grey-text">05.10.12</span></span>
+                          <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов.</p>
+                        </li>
+                      </ul>
+                      <div class="message-area">
+                        <form class="col s12">
+                          <textarea placeholder="Напишите сообщение..." class="custom-input create-message" maxlength="500"></textarea>
+                          <button type="submit" class="add-message"><i class="material-icons">send</i></button>
+                        </form>
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- // Messages -->
+        </div>     
+      </div>
+    </body>
+    <footer>
+      <div class="container">
+        <div class="row">
+        <div class="block">
+          <!-- User main panel footer -->
+          <div class="main-footer col s12 m3 l3 xl2">
+            <div class="logo">
+              <a href="/"><img src="img/logo.png" class="responsive-img" alt="" width="100"></a>
+            </div>
+            <div class="col s12">
+              <ul>
+                <li><a href="#login">Авторизоваться</a></li>
+                <li><a href="#registration">Зарегистрироваться</a></li>
+                <li><a href="#">Восстановить пароль</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- // User main panel footer -->
+          <!-- Menu link -->
+          <div class="menu-link col s12 m3 l3 xl3"> 
+            <h5>О проекте</h5>         
+            <div class="col s12">
+              <ul>              
+                <li><a href="#">Оферта</a></li>
+                <li><a href="#">Помощь</a></li>
+                <li><a href="#">Пользовательское соглашение</a></li>
+                <li><a href="#">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- // Menu link -->
+          <!-- Query popular -->
+          <div class="query-popular col s12 m6 l6 xl4">
+            <h5>Популярные запросы</h5>              
+            <div class="query-popular-1 col s6">              
+              <ul>
+                <li><a href="#">Первая ссылка</a></li>
+                <li><a href="#">Вторая ссылка</a></li>
+                <li><a href="#">Третья ссылка</a></li>
+                <li><a href="#">Четвертая ссылка</a></li>
+                <li><a href="#">Пятая ссылка</a></li>
+                <li><a href="#">Шестая ссылка</a></li>
+              </ul>
+            </div>
+            <div class="query-popular-2 col s6">
+              <ul>
+                <li><a href="#">Первая ссылка</a></li>
+                <li><a href="#">Вторая ссылка</a></li>
+                <li><a href="#">Третья ссылка</a></li>
+                <li><a href="#">Четвертая ссылка</a></li>
+                <li><a href="#">Пятая ссылка</a></li>
+                <li><a href="#">Шестая ссылка</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- // Query popular -->
+          <!-- Social link -->
+          <div class="social-link-footer col s12 m12 l12 xl3">
+            <h5>Социальные сети</h5>
+            <div class="col s12">              
+              <img src="img/vk.png" alt="" class="responsive-img soc-icon">
+              <img src="img/fb.png" alt="" class="responsive-img soc-icon">
+              <img src="img/ok.png" alt="" class="responsive-img soc-icon">
+             <!--  <img src="img/gplus.png" alt="" class="responsive-img soc-icon"> -->
+              <img src="img/mailru.png" alt="" class="responsive-img soc-icon">
+             <!--  <img src="img/ya.png" alt="" class="responsive-img soc-icon"> -->
+            </div>
+          </div>
+          <!-- // Social link -->
+        </div>
+        </div>
+        <div class="row" style="margin: 0;">
+          <!-- Copyright -->
+          <div class="copyright col s12">
+            <span>&copy; 2017 Все права защищены.</span>
+          </div>
+          <!-- // Copyright -->
+        </div>
+      </div>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <!-- js -->
+      <script type="text/javascript" src="js/common.js"></script>
+      <script type="text/javascript" src="js/freewall.min.js"></script>
+      <script type="text/javascript" src="js/responsiveCarousel.min.js"></script>
+    </footer>
+  </html>

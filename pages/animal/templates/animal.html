@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load staticfiles online age%}
+
+{% block content %}
+    <section class="section-animal-profile">
+        <div class="block z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col s3">
+                    <div class="animal-main-photo">
+                        {% if animal.avatar %}
+                            <img src="{{ animal.avatar_thumb.url }}" alt="avatar" class="responsive-img">
+                        {% else %}
+                            <img src="{% static '/img/ava_4.png' %}" class="responsive-img" alt="none-avatar">
+                        {% endif %}
+                        <h5 class="margin-0 center">{{ animal.first_name }}</h5>
+                    </div>
+                </div>
+                <div class="col s9">
+                    <div class="animal-user-main-info">
+                        <div class="row margin-bottom-0">
+                            <div class="col">
+                                <a href="{% url 'user' username=animal.user.username %}">
+                                    {% if people.profile.avatar %}
+                                        <img src="{{ people.profile.avatar_thumb.url }}" alt="avatar" class="responsive-img circle">
+                                    {% else %}
+                                        <img src="{% static '/img/ava_4.png' %}" class="responsive-img circle" alt="none-avatar">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="col">
+                                <h5>{{ animal.user.first_name }} ({{ animal.user.username }}) {{ animal.user.last_name }}</h5>
+                                <span>{% if animal.user.profile.gender != none %}{{ animal.user.profile.get_gender_display }}{% endif %}{% if animal.user.profile.birthday != none %}, {{ animal.user.profile.birthday|age }}{% endif %}{% if animal.user.profile.city != none %}, {{ animal.user.profile.city }}{% endif %}</span>
+                                <span class="contacts-owner">{% if animal.user.profile.phone != none %}<a href="tel:{{ animal.user.profile.phone }}" class="link">{{ animal.user.profile.phone }}</a> / {% endif %}{% if people.profile.vk != none %} <a href="{{ people.profile.vk }}" target="_blank" class="link">{{ people.profile.vk }}</a> {% elif people.profile.ok != none %} <a href="{{ people.profile.ok }}" target="_blank" class="link">{{ people.profile.ok }}</a> {% elif people.profile.fb != none %} <a href="{{ people.profile.fb }}" target="_blank" class="link">{{ people.profile.fb }}</a> {% elif people.profile.insta != none %} <a href="{{ people.profile.insta }}" target="_blank" class="link">{{ people.profile.insta }}</a>{% else %}{% endif %}</span>
+                            </div>
+                            <div class="col s12 center">
+                                {% if request.user.is_authenticated and request.user != people %}
+                                    <form method="post" action="/chat/{{ people.profile }}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="user_to" value="{{ people.pk }}">
+                                        <input class="btn waves-effect waves-light z-depth-0" type="submit" class="btn waves-effect waves-light z-depth-0" value="Написать сообщение">
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if animal.user.profile.last_visit|online %}
+                            <div class="online bold">Online</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col s12 center">
+                    {% if user.is_authenticated and request.user == people %}
+                        {% if user == animal.user %}
+                            <a href="{% url 'animal_update' pk=animal.pk %}" class="btn waves-effect waves-light z-depth-0" style="margin-top: 1rem">Редактировать информацию</a>
+                            <a href="{% url 'animal_delete' pk=animal.pk %}" class="btn red-color red-color waves-effect waves-light z-depth-0" style="margin-top: 1rem">Удалить</a>
+                        {% endif %} 
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if animal_photos %}
+        <section class="section-user-animal-photo">
+            <div class="block z-depth-1">
+                <div class="row margin-bottom-0">
+                    <div class="user-photo-carousel">
+                        {% for img in animal_photos %}
+                            <div class="crsl-item">
+                                <a href="{{ img.photo.url }}" data-fancybox="gallery" data-caption="{{ img.title }}">
+                                    <img src="{{ img.photo_thumb.url }}" alt="{{ img.title }}" class="responsive-img">
+                                </a>
+                                {% if request.user == people %}
+                                    <a href="{% url 'photo_delete' pk=img.pk %}" class="photo-ed delete"><i class="material-icons">delete</i></a>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    
+    {% if request.user == people %}
+        <div class="center">
+            <a class="btn waves-effect waves-light z-depth-0" href="{% url 'photo_create' pk=animal.pk %}" style="margin-top: 1rem">Добавить фото</a>
+        </div>
+    {% endif %}
+
+
+    <section class="section-animal-about">
+        <div class="custom-block-header z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col s12">
+                    <h5>Информация о животном</h5>
+
+                    {% if user.is_authenticated and user == animal.user %}
+                        <h5 class="right"><a href="{% url 'attr_create' pk=animal.pk %}">Добавить характеристики</a></h5>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+            <div class="row">
+                <div class="col s12">
+                    <h5>Животное</h5>
+                    <span>{{ animal.kind.kind }}</span>
+                    <h5>Пол</h5>
+                    <span>{{ animal.get_gender_display }}</span>
+                    <h5>Дата рождения</h5>
+                    <span>{{ animal.birthday|date:"d.m.Y" }}</span>
+                    {% for attr in attrs %}
+                        <h5>{{ attr.attr.attr }}</h5>
+                        <span>{{ attr.value }}</span>
+                        {% if user.is_authenticated and user == animal.user %}
+                            <a href="{% url 'attr_update' pk=attr.pk %}">Редактировать</a>
+                            <a href="{% url 'attr_delete' pk=attr.pk %}">Удалить</a>
+                        {% endif %}
+                    {% endfor %}
+                    <h5>Личная информация</h5>
+                    <span>{{ animal.info }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if more_animals %}
+        <section class="section-my-pets">
+            <div class="custom-block-header pb0 z-depth-1">
+                <div class="row margin-bottom-0">
+                    <div class="col s12 header-block clearfix padding-0">
+                        <div class="col s9">
+                            <h5>Другие питомцы пользователя</h5>
+                        </div>
+                        <div class="col right-align navig"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-block-body">
+                <div class="row margin-bottom-0">
+                    {% for animal in more_animals %}
+                        <div class="pets col s4 center">
+                            <a href="{% url 'animal' pk=animal.pk %}" class="tooltipped" data-position="top" data-delay="10" data-tooltip="{{ animal.first_name }}">
+                                {% if animal.avatar_thumb %}
+                                    <img src="{{ animal.avatar_thumb.url }}" alt="" class="responsive-img circle z-depth-1">
+                                {% else %}
+                                    <img src="/static/img/ava_4.png" alt="" class="responsive-img circle z-depth-1">
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    
+    {% if in_blog %}
+        <section class="section-animal-about-article">
+            <div class="custom-block-header z-depth-1">
+                <div class="row margin-bottom-0">
+                    <div class="col s12 header-block clearfix padding-0">
+                        <div class="col s9 m10">
+                            <h5>Записи о животном</h5>
+                        </div>
+                        <div class="col s3 m2 right-align"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-block-body">
+                <div class="row margin-bottom-0">
+
+                    {% for luarticle in in_blog %}
+                        <div class="crsl-item z-depth-1">
+                            <div class="thumbnail">
+                                <a href="{% url 'blog_detail' pk=luarticle.pk %}">
+                                    {% if luarticle.image %}
+                                        <img src="/media/{{ luarticle.image_thumb }}" alt="image" class="responsive-img">
+                                    {% else %}
+                                        <img src="{% static '/img/ava_4-260x190.png' %}" alt="none-image" class="responsive-img">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <h5>
+                                <a href="{% url 'blog_detail' pk=luarticle.pk %}">{{ luarticle.title|truncatechars:20 }}</a>
+                            </h5>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if similar_animals %}
+        <section class="section-similar-profiles">
+            <div class="custom-block-header pb0 z-depth-1">
+                <div class="row margin-bottom-0">
+                    <div class="col s12 header-block clearfix padding-0">
+                        <div class="col s9 m10">
+                            <h5>Похожие животные</h5>
+                        </div>
+                        <div class="col right-align navig"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-block-body z-depth-1">
+                <div class="row margin-bottom-0">
+
+                    {% for sanimal in similar_animals %}
+                    <div class="crsl-item">
+                        <a href="{% url 'animal' pk=sanimal.pk %}">
+                            {% if sanimal.avatar %}
+                                <img src="{{ sanimal.avatar_thumb.url }}" class="responsive-img"> 
+                            {% else %}
+                                <img src="{% static '/img/ava_4.png' %}" class="responsive-img z-depth-1" alt="none-avatar">                     
+                            {% endif %}
+                        </a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+{% load staticfiles online %}
+
+    <section class="section-animal-statistic">
+        <div class="custom-block-header z-depth-1">
+          <div class="row margin-bottom-0">
+            <div class="col s12">
+              <h5>Статистика</h5>
+            </div>
+          </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+          <div class="row margin-bottom-0">
+            <div class="col s12">
+              <span>Просмотры: {{ stat_viewed }}</span>, <span>Статьи: {{ in_blog.count }}</span>
+            </div>
+          </div>
+        </div>
+    </section>
+
+{% endblock %}

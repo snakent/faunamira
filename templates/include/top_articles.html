@@ -1,0 +1,36 @@
+{% load staticfiles %}
+
+<section class="section-most-popular-blog">
+    <div class="custom-block-header z-depth-1">
+        <div class="row margin-bottom-0">
+            <div class="col s12 header-block clearfix padding-0">
+                <div class="col s9 m10">
+                    <h5>Популярные записи в блогах</h5>
+                </div>
+                <div class="col right-align navig"></div>
+            </div>
+        </div>
+    </div>
+    <div class="custom-block-body">
+        <div class="row margin-bottom-0">
+
+            {% for lart in top_articles %}
+                <div class="crsl-item z-depth-1">
+                    <div class="thumbnail">
+                        <a href="{% url 'blog_detail' pk=lart.pk %}">
+                            {% if lart.image %}
+                                <img src="/media/{{ lart.image_thumb }}" alt="image" class="responsive-img">
+                            {% else %}
+                                <img src="{% static '/img/ava_4-260x190.png' %}" alt="none-image" class="responsive-img">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <h5>
+                        <a href="{% url 'blog_detail' pk=lart.pk %}">{{ lart.title|truncatechars:20 }}</a>
+                    </h5>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>

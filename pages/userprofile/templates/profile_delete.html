@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+	 
+	<section class="section-user-profile-delete">
+		<div class="custom-block-header z-depth-1">
+			<div class="row margin-bottom-0">
+				<div class="col s12">
+					<h5>Удаление пользователя</h5>
+				</div>
+			</div>
+		</div>
+		<div class="custom-block-body z-depth-1">
+			<div class="row">
+				<div class="col s12">
+					<p>Хотите удалить пользователя {{ user.username }}?</p>
+				    <form method="post">
+				        {% csrf_token %}
+				        <div class="col s12 center">
+				        	<a class="btn waves-effect waves-light z-depth-0" href="{% url 'user' username=user.username %}" style="margin-top: 1rem">Отменить</a>
+				        	<input class="btn red-color waves-effect waves-light z-depth-0" type="submit" value="Удалить">
+				        </div>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

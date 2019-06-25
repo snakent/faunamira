@@ -1,0 +1,50 @@
+{% load staticfiles  %}
+
+    <!-- {% for ruser in random_users %}
+        <div>
+            <a href="{% url 'user' username=ruser.username %}">
+                {% if ruser.profile.avatar_thumb %}
+                    <img src="{{ ruser.profile.avatar_thumb.url }}">
+                {% else %}
+                    <p>{{ ruser.username }}</p>
+                {% endif %}
+            </a>
+        </div>
+    {% endfor %} -->
+
+<noscript>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fallback.css' %}" />
+</noscript>
+<!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fallback.css' %}" />
+<![endif]-->
+<!-- {% if not banner.url %} offset-xl4 {% endif %} -->
+<section class="section-grid-random">
+    <div class="block z-depth-1 padding-0">
+
+        <div id="ri-grid" class="ri-grid ri-grid-size-1">
+            <img class="ri-loading-image" src="{% static 'img/loading.gif' %}" />
+            <ul>
+                <!-- <li>
+                    <a href="#">
+                        <img src="{% static 'img/restart.jpg' %}" />
+                    </a>
+                </li> -->
+                {% for ruser in random_users %}
+                    <li>
+                        {% if ruser.profile.avatar and ruser.profile.avatar_thumb %}
+                            <a href="{% url 'user' username=ruser.username %}">
+                                <img src="{{ ruser.profile.avatar_thumb.url }}" />
+                            </a>
+                        {% else %}
+                            <a href="{% url 'user' username=ruser.username %}">
+                                <img src="{% static '/img/ava_4.png' %}" class="responsive-img z-depth-1" alt="none-avatar">
+                            </a>                            
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</section>

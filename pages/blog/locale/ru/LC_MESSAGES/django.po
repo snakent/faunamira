@@ -1,0 +1,69 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-08 15:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: apps.py:7 models.py:24 models.py:25
+msgid "Blog"
+msgstr "Блог"
+
+#: apps.py:8
+msgid "Blog records"
+msgstr "Записи в блоге"
+
+#: models.py:13
+msgid "Author"
+msgstr "Автор"
+
+#: models.py:14
+msgid "Title"
+msgstr "Заголовок"
+
+#: models.py:15
+msgid "Content"
+msgstr "Контент"
+
+#: models.py:16
+msgid "Date of publication"
+msgstr "Дата публикации"
+
+#: models.py:17
+msgid "Image"
+msgstr "Изображение"
+
+#: models.py:19
+msgid "Viewed"
+msgstr "Просмотров"
+
+#: models.py:70
+msgid "Blog_page"
+msgstr "Страница блога"
+
+#: models.py:72
+msgid "User"
+msgstr "Пользователь"
+
+#: models.py:75
+msgid "Blog Viewed"
+msgstr "Просмотров"
+
+#: models.py:76
+msgid "Blog Vieweds"
+msgstr "Просмотров"

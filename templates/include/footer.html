@@ -1,0 +1,144 @@
+{% load staticfiles %}
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="block">
+                <!-- User main panel footer -->
+                <div class="main-footer col s12 m3 l3 xl2">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="{% static 'img/logo.png' %}" class="responsive-img" alt="" width="100">
+                        </a>
+                    </div>
+                    <div class="col s12 padding-0">
+                        <ul>
+                            {% comment %} <li>
+                                <a href="#login">Авторизоваться</a>
+                            </li>
+                            <li>
+                                <a href="#registration">Зарегистрироваться</a>
+                            </li>
+                            <li>
+                                <a href="#">Восстановить пароль</a>
+                            </li> {% endcomment %}
+                            {% if user.is_authenticated %} {% if user.profile.avatar %}
+                            <li class="user-photo padding-0">
+                                <a href="{% url 'user' username=user.username %}"><img src="{{ user.profile.avatar_thumb.url }}" class="responsive-img circle"></a> {% endif %}
+                            </li>
+                            <li class="col s12 padding-0">
+                                <a href="{% url 'user' username=user.username %}">{{ user.first_name }} {{ user.last_name }}</a>
+                            </li>
+                            <li class="col s12 padding-0">
+                                <a href="{% url 'account_logout' %}">
+                                    {% csrf_token %}
+                                    Выйти
+                                </a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="#block_user">Авторизоваться</a>
+                            </li>
+                            <li>
+                                <a href="#block_user">Зарегистрироваться</a>
+                            </li>
+                            <li>
+                                <a href="/password_reset">Восстановить пароль</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- // User main panel footer -->
+                <!-- Menu link -->
+                <div class="menu-link col s12 m5 l5 xl7">
+                    <h5>О проекте</h5>
+                    <div class="col s12 padding-0">
+                        <ul>
+                            {% for fpoint in alt_menu %}
+                            <li>
+                                <a href="{{ fpoint.url }}">{{ fpoint.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- // Menu link -->
+                <!-- Query popular -->
+                <!-- <div class="query-popular col s12 m6 l6 xl4">
+                    <h5>Популярные запросы</h5>
+                    <div class="query-popular-1 col s6 padding-0">
+                        <ul>
+                            <li>
+                                <a href="#">Первая ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Вторая ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Третья ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Четвертая ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Пятая ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Шестая ссылка</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="query-popular-2 col s6 padding-0">
+                        <ul>
+                            <li>
+                                <a href="#">Первая ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Вторая ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Третья ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Четвертая ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Пятая ссылка</a>
+                            </li>
+                            <li>
+                                <a href="#">Шестая ссылка</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+                <!-- // Query popular -->
+                <!-- Social link -->
+                <div class="social-link-footer col s12 m4 l4 xl3">
+                    <h5>Социальные сети</h5>
+                    <div class="col s12 padding-0">
+                        <a href="{{ link_vk.url }}"><img src="{% static 'img/soc/vk.png' %}" alt="" class="responsive-img soc-icon"></a>
+                        <!-- <a href="{{ link_fb.url }}"><img src="{% static 'img/soc/fb.png' %}" alt="" class="responsive-img soc-icon"></a> -->
+                        <a href="{{ link_ok.url }}"><img src="{% static 'img/soc/odnoklassniki.png' %}" alt="" class="responsive-img soc-icon"></a>
+                        <!--  <img src="img/gplus.png" alt="" class="responsive-img soc-icon"> -->
+                        <!-- <a href="{{ link_in.url }}"><img src="{% static 'img/soc/mailru.png' %}" alt="" class="responsive-img soc-icon"></a> -->
+                        <!--  <img src="img/ya.png" alt="" class="responsive-img soc-icon"> -->
+                    </div>
+                </div>
+                <!-- // Social link -->
+            </div>
+        </div>
+        <div class="row" class="margin-0 padding-0">
+            <!-- About -->
+            <div class="about col s12">
+                <span>Фауна Мира &ndash; первый социальный сайт для знакомства владельцев животных.</span>
+            </div>
+            <!-- // About -->
+            <!-- Copyright -->
+            <div class="copyright col s12">
+                <span>&copy; 2018 Все права защищены.</span>
+            </div>
+            <!-- // Copyright -->
+        </div>
+    </div>
+</footer>

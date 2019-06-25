@@ -1,0 +1,29 @@
+{% if user_animals %}
+
+    <section class="section-my-pets">
+        <div class="custom-block-header pb0 z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col s12 header-block clearfix padding-0">
+                    <div class="col s9">
+                        <h5>Мои питомцы</h5>
+                    </div>
+                    <div class="col right-align navig"></div>
+                </div>
+            </div>
+        </div>
+        <div class="custom-block-body">
+            <div class="row margin-bottom-0">
+                {% for animal in user_animals %}
+                    <div class="pets col s4 center">
+                        <a href="{% url 'animal' pk=animal.pk %}" class="tooltipped" data-position="top" data-delay="10" data-tooltip="{{ animal.first_name }}">
+                            {% if animal.avatar_thumb %}<img src="{{ animal.avatar_thumb.url }}" alt="" class="responsive-img circle z-depth-1">
+                            {%else%}<img src="/static/img/ava_4.png" alt="" class="responsive-img circle z-depth-1">
+                            {%endif%}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endif  %}

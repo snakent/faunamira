@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load online %}
+
+{% block content %}
+<section class="section-messages">
+    <div class="block item z-depth-1">
+	<i class="material-icons btn-dialog">keyboard_arrow_down</i>
+      <div class="message-block">
+        <div class="row margin-bottom-0">
+          <div class="col s12 m4 l5 xl4">
+            <ul class="collection scroll" id="chat_userlist">
+                {% for room in rooms %}
+                  <li class="collection-item avatar room-link" data-room-id="{{ room.id }}">
+                    {% ifequal  room.user1 user %}
+                        {% if room.user2.profile.avatar_thumb %}
+                            <div class="user-avatar">
+                                <img src="{{ room.user2.profile.avatar_thumb.url }}" alt="" class="circle">
+                                {% if room.user2.profile.last_visit|online %}
+                                    <div class="online"></div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        <span class="title truncate">
+                            {% if not room.user2.first_name and not room.user2.last_name %}
+                                {{ room.user2.username }}
+                            {% else %}
+                                {{ room.user2.first_name }} {{ room.user2.last_name }}
+                            {% endif %}
+                        </span>
+                        <span class="secondary-content" style="display:none"><i class="material-icons">fiber_manual_record</i></span>
+                    {% else %}
+                        {% if room.user2.profile.avatar_thumb %}
+                            <img src="{{ room.user1.profile.avatar_thumb.url }}" alt="" class="circle">
+                        {% endif %}
+                        <span class="title truncate">
+                            {% if not room.user1.first_name and not room.user1.last_name %}
+                                {{ room.user1.username }}
+                            {% else %}
+                                {{ room.user1.first_name }} {{ room.user1.last_name }}
+                            {% endif %}
+                        </span>
+                        <span class="secondary-content" style="display:none"><i class="material-icons">fiber_manual_record</i></span>
+                    {% endifequal %}
+
+                        {% if room.user1.profile.avatar_thumb %}
+                            <img src="{{ room.user1.profile.avatar_thumb.url }}" alt="{{ room.user1.first_name }} {{ room.user1.last_name }}" class="circle" id="user{{ room.user1.id }}" username="{{ room.user1.username }}" style="display: none;">
+                        {% endif %}
+
+                        {% if room.user2.profile.avatar_thumb %}
+                            <img src="{{ room.user2.profile.avatar_thumb.url }}" alt="{{ room.user2.first_name }} {{ room.user2.last_name }}" class="circle" id="user{{ room.user2.id }}" username="{{ room.user2.username }}" style="display: none;">
+                        {% endif %}
+
+                  </li>
+                {% endfor %}
+            </ul>
+          </div>
+          <div class="col s12 m8 l7 xl8">
+            <div class="dialog-area" id="chats">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WTF -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+
+    <script>
+    	$('.btn-dialog').click(function(){
+			$(this).toggleClass('view');
+			$('.message-block .collection#chat_userlist').toggleClass('not-view');
+		});
+        var hist_start=0, hist_offset=20, histnotfull=true, anchor=$('.room');
+
+        function askHistory(socket,room,start,offset){
+            socket.send(JSON.stringify({
+                "command": "history",
+                "room": room,
+                "start": hist_start,
+                "offset": hist_offset
+            }));
+        }
+
+        function prepareMessage(date,user,msg){
+            dt = new Date(date);
+            name = $('#user'+user).attr('alt')
+            if(name==" "){
+                username = $('#user'+user).attr('username')
+            }
+            else{
+                username = name
+            }
+            message =  "<li class='collection-item avatar'>" +
+                        "<a href='/profile/user/"+$('#user'+user).attr('username')+"' target='_blank'><img src='" + $('#user'+user).attr('src') + "' alt='' class='circle'></a>" + 
+                        "<a href='/profile/user/"+$('#user'+user).attr('username')+"' class='title truncate light-green-text text-darken-3' target='_blank'>" + username + "<span class='date grey-text'> " + dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString() + "</span></a>" +
+                        "<p>" + msg + "</p>" + 
+                    "</li>";
+            return message;
+        }
+
+        function chatScroll(){
+            $('.room').scrollTop(document.getElementById($('.room').attr('id')).scrollHeight);
+        };
+
+        $(function () {
+            var myroom=null;
+            // Correctly decide between ws:// and wss://
+            var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+            var ws_path = ws_scheme + '://' + window.location.host + "/chat/stream/";
+            //console.log("Connecting to " + ws_path);
+            var socket = new ReconnectingWebSocket(ws_path);
+            // Handle incoming messages
+            socket.onmessage = function (message) {
+                // Decode the JSON
+                //console.log("Got websocket message " + message.data);
+                var data = JSON.parse(message.data);
+                // Handle errors
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                // Handle joining
+                if (data.join) {
+                    //refresh scroll values
+                    hist_start=0, hist_offset=20, histnotfull=true, anchor=$('.room');
+                    myroom = data.join;
+                    //console.log("Joining room " + data.join);
+                    //empty chat
+                    var arc_chats = $("#chats");
+                    arc_chats.empty();
+
+                    var roomdiv = $(
+                            "<ul class='collection scroll room' id='room-" + data.join + "'>" +
+                            "</ul>"+
+                            "<div class='message-area'>"+
+                            "<form class='col s12'>"+
+                            "<textarea placeholder='Сообщение...' class='custom-input create-message' maxlength='500'></textarea>"+
+                            "<button type='submit' class='add-message'><i class='material-icons'>send</i></button>"+
+                            "</form>"+
+                            "</div>"+
+                            "<div class='clear'></div>"
+                    );
+                    // Hook up send button to send a message
+                    roomdiv.find("form").on("submit", function () {
+                        //console.log('sending: '+roomdiv.find("textarea").val());
+                        socket.send(JSON.stringify({
+                            "command": "send",
+                            "room": data.join,
+                            "message": roomdiv.find("textarea").val()
+                        }));
+                        roomdiv.find("textarea").val("");
+                        return false;
+                    });
+                    $("#chats").append(roomdiv);
+
+                    // Hook enter key
+                    $('textarea.create-message').keyup(function(e){
+                        if(e.keyCode == 13)
+                        {
+                            $(".add-message").trigger('click');
+                        }
+                    });
+
+                    // Hook scroll to ask for history
+                    var scrollPos = 0;
+                    $('.room').scroll(function(){
+                        var st = $(this).scrollTop();
+                        if (histnotfull && st < scrollPos && $(".room").scrollTop()==0){
+                            //console.log("Asking for room history " + data.join + " offset " + hist_offset +  " start " + hist_start)
+                            anchor = $('.room').children().first();
+                            //ask for older history
+                            askHistory(socket,data.join,hist_start,hist_offset);
+                        }
+                        scrollPos = st;
+                    });
+
+                    // Ask for history
+                    askHistory(socket,data.join,hist_start,hist_offset);
+
+                    // Handle leaving
+                } else if (data.leave) {
+                    //console.log("Leaving room " + data.leave);
+                    $("#room-" + data.leave).remove();
+                    // Handle getting a message
+                } else if (data.history) {
+                    //console.log("Got history " + data.history);
+
+                    if(data.history === "[]"){
+                        histnotfull = false;
+                        //console.log("history full");
+                    }
+                    else{
+                        hist_start+=hist_offset;
+                        var msgdiv = $("#room-" + data.room);
+                        var ok_msg = "";
+                        var hist_data = JSON.parse(data.history);
+                        var hist = ""; 
+                        $.each(hist_data, function(i, val) {
+                            hist += prepareMessage(val.fields.date,val.fields.user,val.fields.message);                    
+                        });
+                        msgdiv.prepend(hist);
+                        if(data.history_start==0){
+                            //scroll bottom
+                            chatScroll();
+                        }
+                        else{
+                            //scroll to last old element
+                            $(".room").scrollTop(anchor.position().top);   
+                        }
+                    }
+                } else if (data.message || data.msg_type != 0) {
+                    var msgdiv = $("#room-" + data.room);
+                    var ok_msg = "";
+                    // msg types are defined in chat/settings.py
+                    switch (data.msg_type) {
+                        case 0:
+                            // Message
+                            ok_msg = prepareMessage(data.date,data.user,data.message);
+                            break;
+                        //...
+                        default:
+                            //console.log("Unsupported message type!");
+                            return;
+                    }
+                    msgdiv.append(ok_msg);
+                    chatScroll();
+                }
+                 else {
+                    //console.log("Cannot handle message!");
+                }
+            };
+
+            // Room join/leave
+            $("li.room-link").click(function () {
+                roomId = $(this).attr("data-room-id");
+
+                    // Leave room
+                    if(myroom){
+                        $("li.room-link.joined").removeClass("joined");
+                        socket.send(JSON.stringify({
+                            "command": "leave",
+                            "room": myroom
+                        }));
+                    }
+
+                    // Join room
+                    $(this).addClass("joined");
+                    socket.send(JSON.stringify({
+                        "command": "join",
+                        "room": roomId
+                    }));
+                    //console.log("joining"+roomId);
+                
+            });
+            // Helpful debugging
+            socket.onopen = function () {
+                //console.log("Connected to chat socket");
+                //join chat
+                {% if open_room %}
+
+                    // Join room
+                    
+                    /*
+                    $("li.room-link[data-room-id='"+{{open_room}}+"']").addClass("joined");
+
+                        socket.send(JSON.stringify({
+                            "command": "join",
+                            "room": {{open_room}},
+                        }));
+
+                        console.log("joining"+{{open_room}});
+                    */
+
+                    $("li.room-link[data-room-id='"+{{open_room}}+"']").trigger('click');
+
+                {% endif %}
+                };
+            socket.onclose = function () {
+                //console.log("Disconnected from chat socket");
+            }
+        });
+    </script>
+{% endblock %}
+
+

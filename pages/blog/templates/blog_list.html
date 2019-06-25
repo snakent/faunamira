@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <section class="section-search-blog">
+      <div class="custom-block z-depth-1">
+        <div class="row margin-bottom-0">
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12 m10">
+                <input id="autocomplete-input" class="autocomplete custom-input" placeholder="Поиск статей" type="text">
+              </div>
+              <div class="col s12 m2">
+                <button class="btn waves-effect waves-light z-depth-0 col s12" type="submit" name="action">Поиск</button>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% include 'include/top_articles.html' %}
+
+    {% if user.is_authenticated %}
+		<div class="write-article center">
+      <a class="btn waves-effect waves-light z-depth-0" href="{% url 'blog_create' %}">Написать статью</a>
+    </div>
+    {% endif %}
+    
+    <section class="section-found-article">
+    {% for article in blog_list %}
+        <div class="custom-block-header z-depth-1">
+          <div class="row margin-bottom-0">
+            <div class="col s12">
+              <h5><a href="{% url 'blog_detail' pk=article.pk %}">{{ article.title }}</a></h5>
+            </div>
+          </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+          <div class="row">
+            <div class="col s12 m2 user-post">
+              <a href="{% url 'user' username=article.user.profile %}"><img src="{{ article.user.profile.avatar_thumb.url }}" alt="" class="user-photo responsive-img circle"></a>
+              <span>{{ article.user.first_name }} {{ article.user.last_name }}</span>
+              <p>{{ article.date|date:"d.m.Y H:i" }}</p>
+            </div>
+            <div class="col s12 m10 article">
+              <p>{{ article.article|safe|truncatechars_html:400 }}</p>
+              <div class="col s12 center">
+                <a class="btn waves-effect waves-light z-depth-0" href="{% url 'blog_detail' pk=article.pk %}">Читать</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+    <div class="more-article col s12 center">
+        <button class="btn waves-effect waves-light blog-moar" value="{{people}}">Показать еще<i class="material-icons right">cached</i></button>
+    </div>
+    </section>
+	
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+{% endblock %}
+
+

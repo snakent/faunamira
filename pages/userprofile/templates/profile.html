@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load staticfiles online age%}
+
+{% block content %}
+    {% if people %}
+    <section class="section-user-profile">
+        <div class="block z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col s5 m4">
+                    <div class="user-main-photo">
+                        {% if people.profile.avatar %}
+                            <img src="{{ people.profile.avatar_thumb.url }}" class="responsive-img">
+                        {% else %}
+                            <img src="{% static '/img/ava_4.png' %}" class="responsive-img" alt="none-avatar">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col s12 m8">
+                    <div class="user-main-info">
+                        <h5>{{ people.first_name }} ({{ people.username }}) {{ people.last_name }}</h5>
+                        <span>{% if people.profile.gender != none %}{{ people.profile.get_gender_display }}{% endif %}{% if people.profile.birthday != none %}, {{ people.profile.birthday|age }}{% endif %}{% if people.profile.city != none %}, {{ people.profile.city }}{% endif %}</span>
+                        <span class="spanclass">Контактная информация</span>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if people.profile.phone == none and people.profile.vk == none and people.profile.ok == none and people.profile.fb == none and people.profile.insta == none %}
+                                    <tr>
+                                        <td>
+                                            <span>Пользователь не указал контактную информацию</span>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if people.profile.phone %}
+                                    <tr>
+                                        <td>
+                                            <span>Телефон:</span>
+                                        </td>
+                                        <td>
+                                            <a href="tel:{{ people.profile.phone }}" class="link">{{ people.profile.phone }}</a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if people.profile.vk %}
+                                    <tr>
+                                        <td>
+                                            <span>Вконтакте:</span>
+                                        </td>
+                                        <td><a href="{{ people.profile.vk }}" target="_blank" class="link">{{ people.profile.vk }}</a></td>
+                                    </tr>
+                                {% endif %}
+                                {% if people.profile.ok %}
+                                    <tr>
+                                        <td>
+                                            <span>Одноклассники:</span>
+                                        </td>
+                                        <td><a href="{{ people.profile.ok }}" target="_blank" class="link">{{ people.profile.ok }}</a></td>
+                                    </tr>
+                                {% endif %}
+                                {% if people.profile.fb %}
+                                    <tr>
+                                        <td>
+                                            <span>Facebook:</span>
+                                        </td>
+                                        <td><a href="{{ people.profile.fb }}" target="_blank" class="link">{{ people.profile.fb }}</a></td>
+                                    </tr>
+                                {% endif %}
+                                {% if people.profile.insta %}
+                                    <tr>
+                                        <td>
+                                            <span>Instagram:</span>
+                                        </td>
+                                        <td><a href="{{ people.profile.insta }}" target="_blank" class="link">{{ people.profile.insta }}</a></td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        {% if people.profile.last_visit|online %}
+                        	<div class="online bold">Online</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col s12 center">
+                    <!-- <a class="btn waves-effect waves-light z-depth-0" href="messages.html">Написать сообщение</a> -->
+                    {% if request.user.is_authenticated and request.user != people %}
+                    <form method="post" action="/chat/{{ people.profile }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_to" value="{{ people.pk }}">
+                        <input class="btn waves-effect waves-light z-depth-0" type="submit" value="Написать сообщение">
+                    </form>
+                    {% endif %}
+                    {% if request.user == people %}
+                        <a class="btn waves-effect waves-light z-depth-0" href="{% url 'user_update' username=people.username %}" style="margin-top: 1rem">Редактировать профиль</a>
+                        <a class="btn red-color waves-effect waves-light z-depth-0" href="{% url 'user_delete' username=people.username %}" style="margin-top: 1rem">Удалить профиль</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if images %}
+        <section class="section-user-animal-photo">
+            <div class="block z-depth-1">
+                <div class="row margin-bottom-0">
+                    <div class="user-photo-carousel">
+                        {% for img in images %}
+                            <div class="crsl-item">
+                                <a href="{{ img.image.url }}" data-fancybox="gallery" data-caption="{{ img.description }}<br>{{ img.date }}">
+                                    <img src="{{ img.image_thumb.url }}" alt="{{ img.description }} {{ img.date }}" class="responsive-img">
+                                </a>
+                                {% if request.user == people %}
+                                    <a href="{% url 'user_image_upd' pk=img.pk %}" class="photo-ed edit"><i class="material-icons">edit</i></a>
+                                    <a href="{% url 'user_image_del' pk=img.pk %}" class="photo-ed delete"><i class="material-icons">delete</i></a>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    
+    {% if request.user == people %}
+        <div class="center">
+            <a class="btn waves-effect waves-light z-depth-0" href="{% url 'user_image_add' %}" style="margin-top: 1rem">Добавить фото</a>
+        </div>
+    {% endif %}
+
+    <div id="about">
+        {% include 'include/edit_profile_about.html' %}
+    </div>
+    {% include 'include/my_animals.html' %}
+    {% if latest_user_articles %}
+    <section class="section-user-last-article">
+        <div class="custom-block-header pb0 z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col s12 header-block clearfix padding-0">
+                    <div class="col s9 m10">
+                        <h5>Последние записи</h5>
+                    </div>
+                    <div class="col right-align navig"></div>
+                </div>
+            </div>
+        </div>
+        <div class="custom-block-body pb0">
+            <div class="row margin-bottom-0">
+
+                {% for luarticle in latest_user_articles %}
+                    <div class="crsl-item z-depth-1">
+                        <div class="thumbnail">
+                            <a href="{% url 'blog_detail' pk=luarticle.pk %}">
+                                {% if luarticle.image %}
+                                    <img src="/media/{{ luarticle.image_thumb }}" alt="image" class="responsive-img">
+                                {% else %}
+                                    <img src="{% static '/img/ava_4-260x190.png' %}" alt="none-image" class="responsive-img">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <h5>
+                            <a href="{% url 'blog_detail' pk=luarticle.pk %}">{{ luarticle.title|truncatechars:20 }}</a>
+                        </h5>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if similar_people %}
+        <div id="block_similar_people">
+            {% include 'include/similar_people.html' %}
+        </div>
+    {% endif %}
+
+    <section class="section-user-statistic">
+        <div class="custom-block-header z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col s12">
+                    <h5>Статистика</h5>
+                </div>
+            </div>
+        </div>
+        <div class="custom-block-body z-depth-1">
+            <div class="row margin-bottom-0">
+                <div class="col s12">
+                    <span>Просмотры: {{ stat_viewed }}, Животные: {{ stat_animals }}, Статьи:
+                    <a href="{% url 'blog_list' username=people.username %}" class="link">{{ stat_blog }}</a>, Последний визит: {{ stat_visit }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% else %}
+        <h1>Данной страницы не существует</h1>
+    {% endif %}
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
