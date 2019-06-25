@@ -2,7 +2,9 @@
 
 nginx config:
 
-server {
+server 
+{
+
     server_name faunamira.ru www.faunamira.ru fauna-mira.ru www.fauna-mira.ru faunamira.com www.faunamira.com;
     access_log  /var/log/nginx/example.log;
     client_max_body_size 64M;
@@ -42,7 +44,9 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
-server {
+server 
+{
+
     if ($host = www.faunamira.com) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
